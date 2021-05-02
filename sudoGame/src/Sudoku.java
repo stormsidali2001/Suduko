@@ -56,6 +56,7 @@ public class Sudoku{
         HashSet<Integer> [] rows = new HashSet[9];
         HashSet<Integer> [] columns = new HashSet[9];
         HashSet<Integer> [] boxes = new HashSet[9];
+        //init sets
         for (int i = 0; i < 9; i++) {
           rows[i] = new HashSet<Integer>();
           columns[i] = new HashSet<Integer>();
@@ -70,7 +71,7 @@ public class Sudoku{
               int n = (int)board[i][j];
               int r=(int)(i / 3 ) * 3;
               int c=(int)(j / 3);
-              int box_index =r + c;
+              int box_index =r + c;//0..9  
              /*
             rows[i].add(n):return true if  n exist in the set
 
