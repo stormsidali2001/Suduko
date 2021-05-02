@@ -1,3 +1,5 @@
+import java.util.HashSet;
+
 public class Sudoku{
     private char[][] board;
     public String tmp="";
@@ -50,6 +52,43 @@ public class Sudoku{
         }
         return true;
     }
+    public boolean isValidSudokuS2(char[][] board) {
+        HashSet<Integer> [] rows = new HashSet[9];
+        HashSet<Integer> [] columns = new HashSet[9];
+        HashSet<Integer> [] boxes = new HashSet[9];
+        for (int i = 0; i < 9; i++) {
+          rows[i] = new HashSet<Integer>();
+          columns[i] = new HashSet<Integer>();
+          boxes[i] = new HashSet<Integer>();
+        }
+    
+        // validate a board
+        for (int i = 0; i < 9; i++) {
+          for (int j = 0; j < 9; j++) {
+            if (board[i][j] != '.') continue;
+
+              int n = (int)board[i][j];
+              int r=(int)(i / 3 ) * 3;
+              int c=(int)(j / 3);
+              int box_index =r + c;
+             /*
+            rows[i].add(n):return true if  n exist in the set
+
+             */
+             if((!rows[i].add(n))
+                ||
+                (!columns[j].add(n))
+                ||
+                (!boxes[box_index].add(n))){
+                    return false;
+              }
+                
+            
+          }
+        }
+    
+        return true;
+      }
     public boolean validInBox(int r,int c)
     {
 
