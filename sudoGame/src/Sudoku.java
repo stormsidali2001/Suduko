@@ -52,6 +52,32 @@ public class Sudoku{
         }
         return true;
     }
+   
+    public boolean validInBox(int r,int c)
+    {
+
+        int ibox=((int)(r/3))*3;
+        int jbox=((int)(c/3))*3;
+        for(int i=0;i<3;i++)
+        {
+            for(int j=0;j<3;j++)
+            {
+                
+               
+                 if(((ibox+i==r) && (j+jbox==c))|| board[i+ibox][j+jbox]=='.') continue;
+               
+                if((board[ibox+i][jbox+j]==board[r][c])) 
+                {
+                   
+                    return false;
+                }
+
+               
+            }
+        }
+        return true;
+    }
+    //
     public boolean isValidSudokuS2(char[][] board) {
         HashSet<Integer> [] rows = new HashSet[9];
         HashSet<Integer> [] columns = new HashSet[9];
@@ -90,30 +116,6 @@ public class Sudoku{
     
         return true;
       }
-    public boolean validInBox(int r,int c)
-    {
-
-        int ibox=((int)(r/3))*3;
-        int jbox=((int)(c/3))*3;
-        for(int i=0;i<3;i++)
-        {
-            for(int j=0;j<3;j++)
-            {
-                
-               
-                 if(((ibox+i==r) && (j+jbox==c))|| board[i+ibox][j+jbox]=='.') continue;
-               
-                if((board[ibox+i][jbox+j]==board[r][c])) 
-                {
-                   
-                    return false;
-                }
-
-               
-            }
-        }
-        return true;
-    }
     public String validMatrix()
     {
         String tmpS="{\n";
@@ -145,6 +147,77 @@ public class Sudoku{
         }
         tmpS+="}";
         return tmpS;
+    }
+    public boolean solve(int row, int col){
+        // If completed all rows, we have solved board, return true
+        if(row==9) return true;
+        
+        // Reached to the last cell in a row, move to next row and first col
+        if(col==9) {
+            return solve(row+1,0);
+        }
+        
+        // If current cell is empty
+        if(board[row][col]=='.'){
+            for(char num='1';num<='9';num++){
+                // try placing each number at empty cell
+                // if board is still valid, move to next cell
+                boolean valid = isPossible(row,col,num);
+                
+                if(valid){
+                    // place the number
+                    board[row][col] = num;
+                    
+                    // solve for next cell
+                    boolean solved = solve(row,col+1);
+                    
+                    
+                    if(solved){
+                        return true;        
+                    }else {
+                        // if board can't be solved with current number
+                        // reset and try next number
+                        board[row][col] = '.';
+                    };
+                }
+            }
+            
+        }
+        else {
+            // if not empty, solve for next cell in same row
+            return solve(row,col+1);
+        }
+        
+        
+        return false;
+        
+    }
+    public boolean isPossible(int r,int c,char num)
+    {
+        char digit = num;
+        
+        // check if row has n
+        for(int i=0;i<9;i++){
+            if(board[r][i]==digit) return false;
+        }
+
+        // check if col has n
+        for(int i=0;i<9;i++){
+            if(board[i][c]==digit) return false;
+        }
+        
+     
+        
+        int startRowIndex = (r/3)*3;
+        int startColIndex = (c/3)*3;
+        
+        for(int i = startRowIndex; i < startRowIndex+3; i++){
+            for(int j = startColIndex; j < startColIndex+3; j++){
+                if(board[i][j]==digit) return false;
+            }
+        }
+		
+        return true;
     }
     @Override
     public String toString()
