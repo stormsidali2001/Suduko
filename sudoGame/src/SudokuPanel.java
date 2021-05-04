@@ -88,10 +88,12 @@ public class SudokuPanel implements ActionListener {
         }
     }
     public void setText(int i , int j , String k  ){
-        
-    
-       M[i][j].setText(k);
-        
+       M[i][j].setText(k);   
+    }
+    public void getter(int i , int j ){
+        String k = "1";
+        k = M[i][j].getText(); 
+        System.out.println(k); 
     }
     
    
