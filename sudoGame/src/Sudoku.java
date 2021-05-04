@@ -10,7 +10,10 @@ public class Sudoku{
     public void setSudoku(char[][] board) {
         this.board = board;
     }
-
+    public void setVal(int i,int j,char val)
+    {
+        this.board[i][j] = val;
+    }
     public Sudoku()
     {
        init();
