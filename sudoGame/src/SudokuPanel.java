@@ -8,6 +8,31 @@ public class SudokuPanel implements ActionListener {
     public static JPanel p = new JPanel();
     public static JTextField[][]M = new JTextField[9][9];
     public static JTextField[][] CopieM = new JTextField[9][9];
+    private Sudoku s;
+
+    public Sudoku getS() {
+        return this.s;
+    }
+
+    public void setS(Sudoku s) {
+        this.s = s;
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+                
+               setText(i, j, String.valueOf(s.getSudoku()[i][j]));
+            }
+        }
+    }
+
+    public Font getFont() {
+        return this.font;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
     Font font = new Font("Lucida Console", Font.BOLD,28);
 
    
@@ -62,16 +87,32 @@ public class SudokuPanel implements ActionListener {
             }
         }
     }
-    public void affichage(int i , int j , int k  ){
-        M[i][j].setText(String.valueOf(k));  
+    public void setText(int i , int j , String k  ){
+        
+    
+       M[i][j].setText(k);
+        
     }
     
    
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+                if(e.getSource()==M[i][j])
+                {
+                    this.s.setVal(i, j, M[i][j].getText().charAt(0));
+                    M[i][j].setText(String.valueOf(s.getSudoku()[i][j]));
+                   
+                }
+               
+            }
+        }
        
-        
+        System.out.println(this.s);
     }
 }
 
