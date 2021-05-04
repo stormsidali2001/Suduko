@@ -88,12 +88,10 @@ public class SudokuPanel implements ActionListener {
         }
     }
     public void setText(int i , int j , String k  ){
-       M[i][j].setText(k);   
-    }
-    public void getter(int i , int j ){
-        String k = "1";
-        k = M[i][j].getText(); 
-        System.out.println(k); 
+        
+      
+       M[i][j].setText(k);
+        
     }
     
    
@@ -108,6 +106,18 @@ public class SudokuPanel implements ActionListener {
                 {
                     this.s.setVal(i, j, M[i][j].getText().charAt(0));
                     M[i][j].setText(String.valueOf(s.getSudoku()[i][j]));
+                    if(this.s.validInRow(i, j) 
+                       && this.s.validInColumn(i, j) 
+                       &&this.s.validInBox(i, j))
+                    {
+                        M[i][j].setBackground(Color.green);
+                    }
+                    else
+                    {
+                        M[i][j].setBackground(Color.red);
+                      
+                    }
+                   
                    
                 }
                
@@ -115,6 +125,7 @@ public class SudokuPanel implements ActionListener {
         }
        
         System.out.println(this.s);
+        System.out.println(this.s.validMatrix());
     }
 }
 
