@@ -63,10 +63,7 @@ public class SudokuPanel implements ActionListener {
         }
     }
     public void affichage(int i , int j , String k  ){
-        
-    
-        String text = M[i][j].setText(String.valueOf(k));
-        
+        M[i][j].setText(String.valueOf(k));  
     }
     
    
